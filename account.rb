@@ -40,7 +40,7 @@ else
 			accountObjArr[0].withdraw(params[1])
 			accountObjArr[1].deposit(params[1])
 		else 
-			accountObjArr.push(Account.new(params[0], params[1].to_i))
+			accountObjArr.push(Account.new(params[0].gsub!(/\"+/, ""), params[1].to_i))
 		end
 	end
 
