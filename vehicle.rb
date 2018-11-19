@@ -29,7 +29,7 @@ end
 puts "Enter input"
 strInput = gets.chomp
 
-if strInput.nil?
+if strInput.empty?
   puts "Enter a valid Input"
 else
   inputArr = strInput.split(/\s+/)
