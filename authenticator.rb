@@ -1,11 +1,11 @@
 def checkUser
-	print "\nPlease enter your username and password when prompted\n"
+  print "\nPlease enter your username and password when prompted\n"
 
-	print "Username: "
-	username = gets
+  print "Username: "
+  username = gets
 
-	print "Password: "
-	password = gets
+  print "Password: "
+  password = gets
 
 end
 
@@ -19,17 +19,17 @@ username = ""
 password = ""
 
 while choice != 2
-	print "\nYour Options\n"
-	print "\n1. Check user"
-	print "\n2. Quit"
-	print "\n\nYour Response: "
-	choice = gets.to_i
-	# puts "Choice Entered: #{choice}"
-	if choice == 1
-		checkUser()
-	elsif choice == 2
-		puts "Bye!"
-		break
-	end
+  print "\nYour Options\n"
+  print "\n1. Check user"
+  print "\n2. Quit"
+  print "\n\nYour Response: "
+  choice = gets.to_i
+  # puts "Choice Entered: #{choice}"
+  if choice == 1
+    checkUser()
+  elsif choice == 2
+    puts "Bye!"
+    break
+  end
 end
 
