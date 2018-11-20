@@ -1,14 +1,10 @@
 public def generate_fibonacci(count)
-  i = 1
-  a = 0
-  b = 1
-  c = 0
-  while i <= count
-    c = a + b
-    yield c
-    a = b
-    b = c
-    i = i + 1
+  prev, nex, sum = 0, 1, 0
+  while count > 0
+    sum = prev + nex
+    yield sum
+    prev, nex = nex, sum
+    count -=1
   end 
 end
 
