@@ -1,20 +1,18 @@
-public def generate_fibonacci(count)
-  prev, nex, sum = 0, 1, 0
-  while count > 0
+public def generate_fibonacci(max_limit)
+  prev = 0
+  nex = 1
+  yield nex
+  loop do
     sum = prev + nex
     yield sum
-    prev, nex = nex, sum
-    count -=1
-  end 
+    prev = nex
+    nex = sum
+    break if prev + nex > max_limit
+  end
 end
 
-puts "Enter the count of numbers to display"
-
-count = gets.chomp.to_i
-
-if count > 0
-  generate_fibonacci(count) { |num| printf("%i ", num) }
-  puts ""
+if ARGV.empty?
+  puts 'Please provide an input'
 else
-  puts "Enter a valid Input"
+  generate_fibonacci(ARGV[0].to_i) { |num| print(num, ' ') }
 end

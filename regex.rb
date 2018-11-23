@@ -1,15 +1,9 @@
 def replace_vowel(str)
-  str.gsub(/[aeiou]/, "*")
+  str.gsub(/[aeiou]/, '*')
 end
 
-puts "Enter a string"
-
-strInput = gets.chomp
-
-if strInput.length == 0
-  puts "Please provide an input"
+if ARGV.empty?
+  puts 'Please provide an input'
 else
-  puts replace_vowel(strInput)
+  puts replace_vowel(ARGV[0])
 end
-
-
