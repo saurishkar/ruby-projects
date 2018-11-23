@@ -1,7 +1,7 @@
 def find_string_occurrence(str)
   res = {}
   str = str.gsub(/\W|[0-9]/, '')
-  str.each_char { |ch| res[ch] = ch =~ /[[:alpha:]]$/ && str.scan(/#{ch}/).length }
+  str.each_char { |ch| res[ch] = str.scan(/#{ch}/).length }
   res
 end
 
