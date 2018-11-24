@@ -1,20 +1,21 @@
+# VEHICLE CLASS
 class Vehicle
-  def initialize(vehicleName, price)
-    @name = vehicleName
-    @price = price
+  def initialize(vehicle_name, price)
+    @name = vehicle_name
+    @price = price.to_f
   end
 
   def to_s
-    "\nBike Name: #{@name} \nBike Price: #{@price}\n" 
+    "\nBike Name: #{@name} \nBike Price: #{@price}\n"
   end
-
 end
 
+# BIKE CLASS, EXTENDS VEHICLE CLASS
 class Bike < Vehicle
-  def initialize(vehicleName, price, dealer, percent_price_increase)
-    super(vehicleName, price)
+  def initialize(vehicle_name, price, dealer, percent_price_increase)
+    super(vehicle_name, price)
     @dealer = dealer
-    @percent_price_increase = percent_price_increase
+    @percent_price_increase = percent_price_increase.to_f
   end
 
   def to_s
@@ -22,21 +23,16 @@ class Bike < Vehicle
   end
 
   def price_increase
-      @price = (@price * (1 + @percent_price_increase / 100)).round(2)
+    @price = (@price * (1 + @percent_price_increase / 100)).round(2)
   end
 end
 
-puts "Enter input"
-strInput = gets.chomp
-
-if strInput.empty?
-  puts "Enter a valid Input"
+if ARGV.empty?
+  puts 'Please provide an input'
 else
-  inputArr = strInput.split(/\s+/)
-  bikeObj = Bike.new(inputArr[0], inputArr[1].to_f, inputArr[2], inputArr[3].to_f)
-  puts bikeObj
-  puts " ", "After #{inputArr[3].to_f} percent price hike:"
-  bikeObj.price_increase
-  puts bikeObj
+  bike_obj = Bike.new(ARGV[0], ARGV[1], ARGV[2], ARGV[3])
+  puts bike_obj
+  puts ' ', "After #{ARGV[3].to_f} percent price hike:"
+  bike_obj.price_increase
+  puts bike_obj
 end
-
