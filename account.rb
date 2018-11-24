@@ -1,7 +1,7 @@
 # ACCOUNT CLASS
 class Account
   @@account_number = 0
-  def initialize()
+  def initialize
     @account_no = @@account_number + 1
     @@account_number += 1
   end
