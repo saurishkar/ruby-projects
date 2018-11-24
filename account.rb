@@ -1,13 +1,13 @@
 # ACCOUNT CLASS
 class Account
   @@account_number = 0
-  def initialize(holder_name, balance)
-    @name = holder_name
+  def initialize()
     @account_no = @@account_number + 1
-    @balance = balance
-
     @@account_number += 1
   end
+
+  attr_accessor:name
+  attr_accessor:balance
 
   def deposit(amount)
     @balance += amount.to_i
@@ -35,7 +35,10 @@ else
       acc_obj_arr[0].withdraw(params[1])
       acc_obj_arr[1].deposit(params[1])
     else
-      acc_obj_arr.push(Account.new(params[0].gsub(/\"+/, ''), params[1].to_i))
+      account_obj = Account.new
+      account_obj.name = params[0].gsub(/\"+/, '')
+      account_obj.balance = params[1].to_i
+      acc_obj_arr.push(account_obj)
     end
   end
   puts acc_obj_arr[0].view_account
