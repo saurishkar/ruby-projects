@@ -12,6 +12,6 @@ end
 if ARGV.empty?
   puts 'Please provide an input'
 else
-  arr = ARGV[0].scan(/\d/).map(&:to_i)
+  arr = ARGV[0].scan(/\d+/).map(&:to_i)
   puts arr.power(ARGV[1]).to_s
 end
