@@ -1,3 +1,4 @@
+# INVERSE THE CASE OF EVERY CHARACTER
 class InverseCase
   def initialize(str)
     @str = str
@@ -8,11 +9,9 @@ class InverseCase
   end
 end
 
-puts "Enter an input"
-str = gets.chomp
-if str.empty?
-  puts "Enter a valid input"
+if ARGV.empty?
+  puts 'Please provide an input'
 else
-  strObj = InverseCase.new(str)
-  puts strObj.to_s
+  str_obj = InverseCase.new(ARGV[0])
+  puts str_obj.to_s
 end

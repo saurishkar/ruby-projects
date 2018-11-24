@@ -1,21 +1,17 @@
-class Palindrome < String
+# TO CHECK WHETHER A STRING IS PALINDROME
+class Palindrome
   def initialize(str)
-    @str = str 
+    @str = str
   end
 
   def palindrome?
-    (@str <=> @str.reverse) == 0 ? true : false
+    (@str <=> @str.reverse).zero?
   end
 end
 
-puts "Enter an input"
-str = gets.chomp
-
-if str.empty?
-  puts "Enter a valid input"
+if ARGV.empty?
+  puts 'Please provide an input'
 else
-  strObj = Palindrome.new(str)
-  puts strObj.palindrome? ? "Input is a palindrome" : "Input is not a palindrome"
+  str_obj = Palindrome.new(ARGV[0])
+  puts "Input string is #{str_obj.palindrome? ? '' : 'not '}a palindrome"
 end
-
-
