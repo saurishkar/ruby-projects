@@ -1,14 +1,19 @@
-def find_string_occurrence(str)
-  res = {}
-  str = str.gsub(/\W|[0-9]/, '')
-  str.each_char { |ch| res[ch] = str.scan(/#{ch}/).length }
-  res
+# OCCURRENCE CLASS
+class Occurrence
+  attr_accessor :str
+  def find_string_occurrence(str)
+    res = {}
+    str.each_char do |ch|
+      res[ch] = str.scan(/#{ch}/).length unless ch =~ /\W|[0-9]/
+    end
+    res
+  end
 end
 
-str_input = ARGV
-
-if str_input.empty?
+if ARGV.empty?
   puts 'Please provide an input'
 else
-  puts find_string_occurrence(str_input[0])
+  str_obj = Occurrence.new
+  str_obj.str = ARGV[0]
+  puts str_obj.find_string_occurrence(str_obj.str)
 end
