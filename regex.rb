@@ -1,5 +1,5 @@
 def replace_vowel(str)
-  str.gsub(/[aeiou]/, '*')
+  str.gsub(/[aeiouAEIOU]/, '*')
 end
 
 if ARGV.empty?
