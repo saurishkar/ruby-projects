@@ -1,22 +1,21 @@
 # Dividing array items into groups using inject
 class Array
   def inject_arr
-    inject({}) do |hsh, item|
-      if item.length.odd?
-        hsh['odd'] = (hsh['odd'] || []).push(item)
+    inject({}) do |hash, item|
+      if item[0].even?
+        hash['even'] = (hash['even'] || []).push(item[1])
       else
-        hsh['even'] = (hsh['even'] || []).push(item)
+        hash['odd'] = (hash['odd'] || []).push(item[1])
       end
-      hsh
+      hash
     end
   end
 
   def gen_array_hash
     res = {}
     map(&:to_s)
-    sort_by!(&:length)
     each { |str| res[str.length] = (res[str.length] || []).push(str) }
-    res
+    res.to_a
   end
 end
 

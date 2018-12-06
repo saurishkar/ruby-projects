@@ -2,9 +2,8 @@
 class Array
   def gen_array_hash
     res = {}
-    sort_by!(&:length)
     each { |str| res[str.length] = (res[str.length] || []).push(str) }
-    res
+    res.sort.to_h
   end
 end
 
