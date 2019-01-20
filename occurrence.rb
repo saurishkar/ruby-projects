@@ -1,10 +1,11 @@
 # OCCURRENCE CLASS
 class Occurrence
   attr_accessor :str
+
   def find_string_occurrence
-    res = {}
+    res = Hash.new(0)
     @str.each_char do |ch|
-      res[ch] = @str.scan(/#{ch}/).length unless ch =~ /\W|[0-9]/ || res[ch]
+      res[ch] += 1 unless ch !~ /[[:alpha:]]/
     end
     res
   end
