@@ -1,6 +1,6 @@
 # Class to generate Pascal triangle
 class PascalTriangle
-  def generate_pascal_triangle(num_of_rows)
+  def generate(num_of_rows)
     return display_row([]) if num_of_rows.zero?
 
     prev_array = [1]
@@ -8,7 +8,8 @@ class PascalTriangle
     display_row([1])
     while i <= num_of_rows
       prev_array = generate_row(i, prev_array) do |new_array|
-        display_row(prev_array = new_array)
+        display_row(new_array)
+        prev_array = new_array
       end
       i += 1
     end
@@ -23,7 +24,7 @@ class PascalTriangle
       arr[j + 1] = prev_array[j] + prev_array[j + 1]
       j += 1
     end
-    display_row(arr)
+    yield(arr)
     arr
   end
 
@@ -36,5 +37,5 @@ end
 if ARGV.empty?
   puts 'Please provide an input'
 else
-  generate_pascal_triangle(ARGV[0].to_i)
+  generate(ARGV[0].to_i)
 end
