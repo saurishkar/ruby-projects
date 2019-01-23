@@ -1,7 +1,11 @@
 # Dividing array items into groups using inject
 class Array
+  REGEX_PATTERNS = {
+    word: /\w+/
+  }.freeze
+
   def inject_arr
-    inject(Hash.new { |h, k| h[k] = [] }) do |res, item|
+    inject(Hash.new { |hash, key| hash[key] = [] }) do |res, item|
       res = if item[0].even?
               res.merge('even' => res['even'].push(item[1]))
             else
@@ -12,8 +16,8 @@ class Array
   end
 
   def group_values_by_length(str_input)
-    arr = str_input.scan(/\w+/)
-    res = Hash.new { |h, k| h[k] = [] }
+    arr = str_input.scan(REGEX_PATTERNS[:word])
+    res = Hash.new { |hash, key| hash[key] = [] }
     arr.each { |str| res = res.merge(str.length => res[str.length].push(str)) }
     res.to_a
   end

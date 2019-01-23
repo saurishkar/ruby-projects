@@ -1,38 +1,39 @@
 # CHARCOUNT CLASS TO COUNT LOWER CASE, UPPER CASE, DIGITS AND SPECIAL CHARACTERS
-class CharCount
+class Character
   def initialize(str)
     @str = str
-    @lower = 0
-    @upper = 0
-    @digit = 0
-    @special = 0
+    @count_hash = Hash.new(0)
   end
 
   def check_character_count
-    @str.each_char do |ch|
-      if ('a'..'z').to_a.include? ch
-        @lower += 1
-      elsif ('A'..'Z').to_a.include? ch
-        @upper += 1
-      elsif ('0'..'9').to_a.include? ch
-        @digit += 1
-      else @special += 1
-      end
+    @str.each_char { |ch| update_count(ch) }
+  end
+
+  def update_count(ch)
+    case ch
+    when 'a'..'z'
+      @count_hash['lower'] += 1
+    when 'A'..'Z'
+      @count_hash['upper'] += 1
+    when '0'..'9'
+      @count_hash['digit'] += 1
+    else
+      @count_hash['special'] += 1
     end
   end
 
   def display_count
-    print 'Lowercase characters = ', @lower, "\n"
-    print 'Uppercase characters = ', @upper, "\n"
-    print 'Numeric characters = ', @digit, "\n"
-    print 'Special characters = ', @special, "\n"
+    print 'Lowercase characters = ', @count_hash['lower'], "\n"
+    print 'Uppercase characters = ', @count_hash['upper'], "\n"
+    print 'Numeric characters = ', @count_hash['digit'], "\n"
+    print 'Special characters = ', @count_hash['special'], "\n"
   end
 end
 
 if ARGV.empty?
   puts 'Please provide an input'
 else
-  obj = CharCount.new(ARGV[0])
+  obj = Character.new(ARGV[0])
   obj.check_character_count
   obj.display_count
 end
