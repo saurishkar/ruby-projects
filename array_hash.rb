@@ -1,11 +1,9 @@
 # Array class having gen_array_hash as method
 class Array
-  REGEX_PATTERNS = {
-    word: /\w+/
-  }.freeze
+  REGEX_PATTERN_WORD = /\w+/
 
   def group_values_by_length(str_input)
-    str_arr = str_input.scan(REGEX_PATTERNS[:word])
+    str_arr = str_input.scan(REGEX_PATTERN_WORD)
     res = Hash.new { |hash, key| hash[key] = [] }
     str_arr.each do |str|
       res = res.merge(str.length => res[str.length].push(str))

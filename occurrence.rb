@@ -2,14 +2,12 @@
 class Occurrence
   attr_accessor :str
 
-  REGEX_PATTERNS = {
-    alpha: /[[:alpha:]]/
-  }.freeze
+  REGEX_PATTERN_ALPHA = /[[:alpha:]]/
 
   def find_string_occurrence
     res = Hash.new(0)
     @str.each_char do |ch|
-      res[ch] += 1 unless ch !~ REGEX_PATTERNS[:alpha]
+      res[ch] += 1 unless ch !~ REGEX_PATTERN_ALPHA
     end
     res
   end

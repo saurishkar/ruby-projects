@@ -1,6 +1,6 @@
 # HIGHLIGHT SEARCH CLASS
-class Search
-  @attr_accessor :search_string
+class String
+  attr_accessor :str
 
   def highlight_occurrence
     @search_string.scan()
@@ -10,7 +10,7 @@ end
 if ARGV.empty?
   puts 'Please provide an input'
 else
-  search_obj = Search.new
-  search_obj.search_string = ARGV[0]
+  search_obj = String.new
+  search_obj.str = ARGV[0]
   puts search_obj.highlight_occurrence
 end
