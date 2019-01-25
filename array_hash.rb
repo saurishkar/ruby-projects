@@ -6,7 +6,7 @@ class Array
     str_arr = str_input.scan(REGEX_PATTERN_WORD)
     res = Hash.new { |hash, key| hash[key] = [] }
     str_arr.each do |str|
-      res = res.merge(str.length => res[str.length].push(str))
+      res[str.length].push(str)
     end
     res.sort.to_h
   end
