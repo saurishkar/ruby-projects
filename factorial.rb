@@ -1,17 +1,13 @@
 # CLASS THAT USES RANGE TO FIND THE FACTORIAL OF A NUMBER
-class Numeric
-  def initialize(num)
-    @num = num
-  end
-
+class Integer
   def factorial
-    (1..@num.to_i).reduce(1, :*)
+    (1..self).reduce(1, :*)
   end
 end
 
 if ARGV.empty?
   puts 'Please provide an input'
 else
-  num = Numeric.new(ARGV[0])
+  num = ARGV[0].to_i
   puts num.factorial
 end

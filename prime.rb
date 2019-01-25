@@ -1,12 +1,8 @@
 # CLASS TO FIND PRIME NUMBERS UPTO N using STEP function
-class Numeric
-  def initialize(limit)
-    @limit = limit.to_i
-  end
-
+class Integer
   def generate_prime_series
     arr = []
-    2.step(by: 1, to: @limit) do |num|
+    2.step(by: 1, to: self) do |num|
       count = 0
       1.step(by: 1, to: num / 2) do |divisor|
         count += 1 if (num % divisor).zero?
@@ -20,6 +16,6 @@ end
 if ARGV.empty?
   puts 'Please provide an input'
 else
-  pr_obj = Numeric.new(ARGV[0])
-  print pr_obj.generate_prime_series
+  num = ARGV[0].to_i
+  print num.generate_prime_series
 end
