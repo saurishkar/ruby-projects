@@ -1,11 +1,8 @@
 # Array class having gen_array_hash as method
 class Array
-  REGEX_PATTERN_WORD = /\w+/
-
-  def group_values_by_length(str_input)
-    str_arr = str_input.scan(REGEX_PATTERN_WORD)
+  def group_values_by_length
     res = Hash.new { |hash, key| hash[key] = [] }
-    str_arr.each do |str|
+    each do |str|
       res[str.length].push(str)
     end
     res.sort.to_h
@@ -15,5 +12,7 @@ end
 if ARGV.empty?
   puts 'Please provide an input'
 else
-  puts [].group_values_by_length(ARGV[0])
+  REGEX_PATTERN_WORD = /\w+/
+  arr = ARGV[0].scan(REGEX_PATTERN_WORD)
+  puts arr.group_values_by_length
 end

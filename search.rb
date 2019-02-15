@@ -1,11 +1,13 @@
 # HIGHLIGHT SEARCH CLASS
 class String
   def count_occurrence(search_str)
-    scan(/#{search_str}/i).length
+    reg_exp = Regexp.new(search_str, true)
+    scan(reg_exp).length
   end
 
   def highlight_occurrence(search_str)
-    gsub(/#{search_str}/i) { |match| match.replace("(#{match})") }
+    reg_exp = Regexp.new(search_str, true)
+    gsub(reg_exp) { "(#{Regexp.last_match[0]})" }
   end
 end
 
