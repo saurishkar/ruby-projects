@@ -1,3 +1,4 @@
+# require 'time'
 # Time class
 class Time
   attr_accessor :time
@@ -11,9 +12,12 @@ class Time
     @time = Time.mktime(YEAR, MONTH, DAY, hour, min, sec)
   end
 
-  def add(time_val_obj)
+  def add(time_obj_array)
     default_time = Time.mktime(YEAR, MONTH, DAY)
-    Time.at(@time.to_i + time_val_obj.time.to_i - 2 * default_time.to_i)
+    result = time_obj_array.inject(time) do |a, time_obj|
+      Time.at(time_obj.time.to_i + a.to_i - 2 * default_time.to_i)
+    end
+    result
   end
 
   def time_valid?(time_str)
@@ -34,16 +38,16 @@ class Time
   end
 end
 
+# ARGV = ["12:1:1", "12:59:59", "11:23:07"]
+
 if ARGV.empty?
   puts 'Please provide an input'
 else
   begin
-    time_obj1 = Time.new(ARGV[0])
-    time_obj2 = Time.new(ARGV[1])
+    initial, *time_obj_array = ARGV.collect { |str| Time.new(str) }
   rescue StandardError => error
     puts error
   else
-    new_time = time_obj1.add(time_obj2)
-    puts new_time
+    puts initial.add(time_obj_array)
   end
 end

@@ -1,14 +1,11 @@
 # Class Interest
 class Interest
   INTEREST_RATE = 0.1
+  attr_accessor :principal, :time
 
-  def initialize(principal, time, &block)
-    raise 'Invalid principal value' if principal.to_f < 0 || principal.empty?
-    raise 'Invalid time value' if time.empty? || time.to_f <= 0
-    raise 'Block not provided' if block.nil?
-    @principal = principal.to_f
-    @time = time.to_f
-    @block = block
+  def initialize
+    raise 'Block not provided' unless block_given?
+    yield(self)
   end
 
   def calc_simple_interest
@@ -20,7 +17,7 @@ class Interest
   end
 
   def calc_interest_difference
-    @block.call(calc_compound_interest - calc_simple_interest)
+    calc_compound_interest - calc_simple_interest
   end
 end
 
@@ -30,12 +27,18 @@ else
   principal = ARGV[0]
   time = ARGV[1]
   begin
-    interest_obj = Interest.new(principal, time) do |diff|
-      printf('Interest difference= %.2f', diff)
+    interest_obj = Interest.new do |obj|
+      if principal&.to_f.negative?
+        raise 'Invalid principal value'
+      end
+      raise 'Invalid time value' if time&.to_f.negative?
+      obj.principal = principal.to_f
+      obj.time = time.to_f
     end
-  rescue StandardError => err
+  rescue ArgumentError => err
     puts err
   else
-    interest_obj.calc_interest_difference
+    interest_diff = interest_obj.calc_interest_difference
+    printf('Interest difference= %.2f', interest_diff)
   end
 end
