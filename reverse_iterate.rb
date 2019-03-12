@@ -1,7 +1,13 @@
 # Array class
 class Array
   def reverse_iterate
-    (length - 1).downto(0).collect { |pos| self[pos] }
+    pos = length - 1
+    new_array = []
+    until pos < 0
+      new_array.push(self[pos])
+      pos -= 1
+    end
+    new_array
   end
 end
 
