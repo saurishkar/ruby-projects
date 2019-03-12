@@ -17,13 +17,9 @@ class Time
   end
 
   def time_valid?(time_str)
-    hour, min, sec = time_str.split(':').map(&:to_i)
-    is_valid = if hour < 24
-                 min < 60 && sec < 60
-               elsif hour == 24 && min.zero? && sec.zero?
-                 true
-               end
-    is_valid
+    regex = /^([01]?\d|2[0-3]):([0-5]?\d):([0-5]?\d)$/
+    is_valid = time_str =~ regex
+    !is_valid.nil?
   end
 
   def to_s

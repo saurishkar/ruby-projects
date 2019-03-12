@@ -20,6 +20,20 @@ class Company
     @employees[employee_obj.emp_id] = employee_obj
   end
 
+  def save_employee_data_into_file
+    employee_by_designation_hash = group_and_sort_employees_by_designation
+    File.open('employees.txt', 'w') do |file|
+      employee_by_designation_hash.to_a.each do |emp_array|
+        designation = "#{emp_array[0]}#{'s' if emp_array[1].length > 1}"
+        file.write("#{designation}\n")
+        emp_array[1].each { |emp| file.write("#{emp}\n") }
+        file.write("\n")
+      end
+    end
+  end
+
+  private
+
   def group_and_sort_employees_by_designation
     employees_by_designation = Hash.new { |h, k| h[k] = [] }
     @employees.to_a.each do |employee|
@@ -30,19 +44,8 @@ class Company
     end
     employees_by_designation.sort.to_h
   end
-
-  def save_employee_data_into_file
-    employee_by_designation_hash = group_employees_by_designation
-    File.open('employees.txt', 'w') do |file|
-      employee_by_designation_hash.to_a.each do |emp_array|
-        designation = "#{emp_array[0]}#{'s' if emp_array[1].length > 1}"
-        file.write("#{designation}\n")
-        emp_array[1].each { |emp| file.write("#{emp}\n") }
-        file.write("\n")
-      end
-    end
-  end
 end
+# ARGV[0] = 'employees.csv'
 
 if ARGV.empty?
   puts 'Please provide an input'
@@ -53,9 +56,9 @@ else
     puts err
   else
     company_obj = Company.new
-    1.upto(data.length - 1) do |pos|
-      record = data[pos]
-      emp_obj = Employee.new(record[0], record[1], record[2])
+    data.each_with_index do |elem, index|
+      next if index.zero?
+      emp_obj = Employee.new(elem[0], elem[1], elem[2])
       company_obj.add_employee(emp_obj)
     end
     company_obj.save_employee_data_into_file
