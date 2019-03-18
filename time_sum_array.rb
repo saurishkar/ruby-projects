@@ -21,16 +21,12 @@ class Time
   end
 
   def time_valid?(time_str)
-    hour, min, sec = time_str.split(':').map(&:to_i)
-    is_valid = if hour < 24
-                 min < 60 && sec < 60
-               elsif hour == 24 && min.zero? && sec.zero?
-                 true
-               end
-    is_valid
+    regex = /^([01]?\d|2[0-3]):([0-5]?\d):([0-5]?\d)$/
+    is_valid = time_str =~ regex
+    !is_valid.nil?
   end
 
-  def to_s
+  def display_time
     statement = ''
     statement += "#{day - 1} day#{day > 2 ? 's' : ''} & " if day > 1
     statement += strftime('%H:%M:%S').to_s
@@ -48,6 +44,6 @@ else
   rescue StandardError => error
     puts error
   else
-    puts initial.add(time_obj_array)
+    puts initial.add(time_obj_array).display_time
   end
 end
