@@ -1,70 +1,94 @@
 # product class
 class Product
-  attr_reader :price, :name, :is_tax_exempted, :is_imported
-  def initialize(name, is_imported, is_tax_exempted, price)
+  SALES_TAX_RATE = 0.1
+  IMPORT_DUTY = 0.05
+  attr_reader :price_with_tax
+  def initialize(name, imported, tax_exempted, price)
     @name = name
-    @is_tax_exempted = is_tax_exempted
-    @is_imported = is_imported
+    @tax_exempted = tax_exempted
+    @imported = imported
     @price = price.to_f
+    @price_with_tax = calculate_price_with_tax
+  end
+
+  def imported?
+    @imported =~ /[yes|y]/i
+  end
+
+  def tax_exempted?
+    @tax_exempted =~ /[yes|y]/i
+  end
+
+  def to_s
+    puts "Product Name: #{@name.capitalize}"
+    puts "Product Price: $ #{@price}"
+    puts "Product Price w/Tax: $ #{@price_with_tax.round(2)}"
+    puts "Is Imported: #{imported? ? 'Yes' : 'No'}"
+    puts "Is Tax Exempted: #{tax_exempted? ? 'Yes' : 'No'}"
+    1.upto(30).each { print '-' }
+    ''
+  end
+
+  private
+
+  def calculate_price_with_tax
+    tax = 0.0
+    tax += SALES_TAX_RATE unless tax_exempted?
+    tax += IMPORT_DUTY if imported?
+    @price.to_f * (1 + tax)
   end
 end
 
 # class Sales
 class Sales
-  SALES_TAX_RATE = 0.1
-  IMPORT_DUTY = 0.05
-  attr_reader :products
   def initialize
     @products = []
   end
 
-  def add_product(name, is_imported, is_tax_exempted, price)
-    product = Product.new(name, is_imported, is_tax_exempted, price)
+  def add_product(name, imported, tax_exempted, price)
+    product = Product.new(name, imported, tax_exempted, price)
     @products.push(product)
   end
 
-  def display_product_list
-    puts '', 'Product List:', ''
-    @products.each do |product_obj|
-      print product_obj.name.capitalize, "\n"
-      print "$#{product_obj.price}\n"
-      print "Imported \n" if /yes/ =~ product_obj.is_imported
-      print "Exempted from Tax\n" if /yes/ =~ product_obj.is_tax_exempted
-      puts ''
-    end
+  def generate_sales_invoice
+    total_sales = calculate_sales
+    display_product_list
+    puts "Total Sales: #{total_sales}", ''
   end
+
+  def display_product_list
+    puts '', 'Product List:'
+    1.upto(30).each { print '-' }
+    puts ''
+    puts @products
+  end
+
+  private
 
   def calculate_sales
     @products.inject(0.0) do |sum, product_obj|
-      sum += if /no/ =~ product_obj.is_tax_exempted
-               product_obj.price * (1 + SALES_TAX_RATE)
-             elsif /yes/ =~ product_obj.is_imported
-               product_obj.price * (1 + IMPORT_DUTY)
-             else
-               product_obj.price
-             end
+      sum += product_obj.price_with_tax
       sum
     end
   end
 end
 
-terminate = 'y'
+terminate = 'n'
 sales_obj = Sales.new
-until terminate =~ /n/
+while terminate !~ /[Y|YES]/i
   print 'Name of the product: '
   name = gets.chomp
   print 'Imported?: '
-  is_imported = gets.chomp
+  imported = gets.chomp
   print 'Exempted from sales tax: '
-  is_exempted = gets.chomp
+  exempted = gets.chomp
   print 'Price: '
   price = gets.chomp
 
-  sales_obj.add_product(name, is_imported, is_exempted, price)
+  sales_obj.add_product(name, imported, exempted, price)
 
-  print 'Do you want to add more items to your list(y/n): '
+  print 'Do you want to terminate ? (Y/N)'
   terminate = gets.chomp
 end
-sales_obj.display_product_list
-puts sales_obj.calculate_sales
+sales_obj.generate_sales_invoice
 # printf('Total Sales: ', sales_obj.calculate_sales.round)

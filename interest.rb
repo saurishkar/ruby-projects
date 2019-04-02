@@ -1,12 +1,22 @@
 # Class Interest
 class Interest
   INTEREST_RATE = 0.1
-  attr_accessor :principal, :time
+  attr_writer :principal, :time
 
   def initialize
     raise 'Block not provided' unless block_given?
     yield(self)
   end
+
+  def principal
+    "$ #{@principal}"
+  end
+  
+  def calc_interest_difference
+    calc_compound_interest - calc_simple_interest
+  end
+
+  private
 
   def calc_simple_interest
     (@principal * INTEREST_RATE * @time).round(2)
@@ -14,10 +24,6 @@ class Interest
 
   def calc_compound_interest
     (@principal * ((1 + INTEREST_RATE)**@time - 1)).round(2)
-  end
-
-  def calc_interest_difference
-    calc_compound_interest - calc_simple_interest
   end
 end
 
@@ -27,7 +33,7 @@ else
   principal = ARGV[0]
   time = ARGV[1]
   begin
-    interest_obj = Interest.new do |obj|
+    interest_obj = Interest.new.tap do |obj|
       if principal&.to_f.negative?
         raise 'Invalid principal value'
       end
