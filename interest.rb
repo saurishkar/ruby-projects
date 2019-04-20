@@ -33,7 +33,7 @@ else
   principal = ARGV[0]
   time = ARGV[1]
   begin
-    interest_obj = Interest.new.tap do |obj|
+    interest_obj = Interest.new do |obj|
       if principal&.to_f.negative?
         raise 'Invalid principal value'
       end
