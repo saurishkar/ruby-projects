@@ -1,8 +1,7 @@
 # Dynamic Class
 class DynamicClass
   def initialize(class_name)
-    Object.const_set(class_name, Class.new)
-    @class = eval class_name
+    @class = Object.const_set(class_name, Class.new)
   end
 
   def def_method(method_name, method_body)
