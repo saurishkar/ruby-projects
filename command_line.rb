@@ -1,18 +1,18 @@
 # Dynamic Class
 class DynamicClass
   def initialize(class_name)
-    @class = Object.const_set(class_name, Class.new)
+    @klass = Object.const_set(class_name, Class.new)
   end
 
   def def_method(method_name, method_body)
     @method_name = method_name
-    @class.define_method(method_name.to_sym) { eval method_body }
-    print "Hello, Your class #{@class} with method #{method_name} is ready."
+    @klass.define_method(method_name.to_sym) { eval method_body }
+    print "Hello, Your class #{@klass} with method #{method_name} is ready."
   end
 
   def call_method
-    print " Calling: #{@class}.new.#{@method_name}: ", "\n"
-    @class.new.public_send(@method_name)
+    print " Calling: #{@klass}.new.#{@method_name}: ", "\n"
+    @klass.new.public_send(@method_name)
   end
 end
 
