@@ -1,2 +1,2 @@
-# require_relative('TOP/substrings')
-# puts substrings("Howdy partner, sit down! How's it going?", ["below","down","go","going","horn","how","howdy","it","i","low","own","part","partner","sit"])
+# require_relative('TOP/stock_picker')
+# puts stock_picker([17, 3, 6, 9, 15, 8, 6, 1, 10])
