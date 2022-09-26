@@ -1,2 +1,2 @@
-# require_relative("TOP/caesar_cipher")
-# puts caesar_cipher("What a string!", 50)
+# require_relative('TOP/substrings')
+# puts substrings("Howdy partner, sit down! How's it going?", ["below","down","go","going","horn","how","howdy","it","i","low","own","part","partner","sit"])
