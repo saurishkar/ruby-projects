@@ -1,2 +1,2 @@
-# require_relative('TOP/stock_picker')
-# puts stock_picker([17, 3, 6, 9, 15, 8, 6, 1, 10])
+# require_relative('TOP/bubble_sort')
+# puts bubble_sort([4,3,78,2,0,2]).to_s
